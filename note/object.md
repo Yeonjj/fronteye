@@ -93,12 +93,12 @@ Symbol은 두가지 용도로 사용된다.
 숨겨져 있지만 접근 할 수 있는 방법들이 있다. 
 
 ### symbol 사용법
+[추가자료](https://medium.com/@hyunwoojo/javascript-symbol-%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-6aa5903fb6f1) : Symbol대한 다른 article.
 
  - `let id = Symbol("id")` 
  - `let user = { [id]: 123 }`
  - `Symbol.for()` : 글로벌 심볼, 같은 description의 같은 심볼을 만든다.
  - `Symbol.keyFor(sym)` : 글로벌 심볼의 description을 가져온다.
- 
  
 ## this
  
@@ -133,11 +133,11 @@ let hi = user.hi;
 hi();
 ~~~
 
-즉 `this`가 갈 곳이 없어진것이다. 내부적으로 js에서 `.`는 함수를 반환하는 것이 아니다. Reference Type을 반환한다. (base, name, strict)의 형태로 반환하는데 여기에 ()연산을 하게 되면, 이정보를 모두얻기 때문에 this를 확실히 할 수 있다.
+즉 `this`가 갈 곳이 없어진것이다. 내부적으로 js에서 `.`는 함수를 반환하는 것이 아니다. Reference Type을 반환한다. `(base, name, strict)`의 형태로 반환하는데 여기에 ()연산을 하게 되면, 이정보를 모두얻기 때문에 this를 확실히 할 수 있다.
 하지만, `hi = user.hi`와 같이 호출하면 이때는 Reference Type을 반환하는 것이 아니라 function을 반환받아서 넘긴다. 그래서 this를 잃는 것이다.(base정보가 없기 때문에) 
 
 
 ### 오브젝트 변환
 
-오브젝트를 스트링으로 변환하는 것은!!!시리얼라이제이션과 로깅을 위함이다.
-x
+오브젝트를 스트링으로 변환하는 것은시리얼라이제이션과 로깅을 위함이다.
+
