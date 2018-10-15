@@ -6,7 +6,7 @@
 
 이미 변수이름으로 사용한 이름을 프로터티의 이름으로 사용할 수 있다. `name:name`도 가능하다. 
 
-~~~
+~~~javascript
 function makeUser(name, age) {
   return {
     name: name, 
@@ -57,7 +57,7 @@ javascript의 메모리관리는 Reachable한지 안한지에의해 결정된다
  - 현제 함수 콜체인에서 다른 함수들의 변수들과 인자들. 이들은 나중에 콜이 끝나고 돌아갈때까지 반드시 유지되어야한다.
  - 글로벌 변수
 
-~~~
+~~~javascript
 function marry(man, woman) {
     woman.husband = man;
     man.wife = woman;
@@ -109,7 +109,7 @@ Symbol은 두가지 용도로 사용된다.
  - `user.f()` or `user['f']()`
 
 다음 애러코드를 보면,
-~~~
+~~~javascript
 let user = {
   name: "John",
   hi() { alert(this.name); },
@@ -128,7 +128,7 @@ user.hi(); // John (the simple call works)
  1. `'.'` 연산은  obj.method를 끌어온다.
  2. 그다음 `()`실행한다. 
 
-~~~
+~~~javascript
 let hi = user.hi;
 hi();
 ~~~
