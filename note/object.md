@@ -1,12 +1,12 @@
 # Javascript 스터디
 
- - `let`과 `get`은 다르다.
+[TOC]
 
 ## Property value shorthand
 
 이미 변수이름으로 사용한 이름을 프로터티의 이름으로 사용할 수 있다. `name:name`도 가능하다. 
 
-~~~
+~~~javascript
 function makeUser(name, age) {
   return {
     name: name, 
@@ -29,7 +29,7 @@ let user = makeUser("Jo1hn", 30);
 alert(user.name); // John
 ~~~
 
-이때 보시다싶이 프로퍼티의 이름이 인자값으로 바꿀 수 있는 것이아니라 값이 바뀌는 것이다. 
+이때 프로퍼티의 이름이 인자값으로 바꿀 수 있는 것이아니라 값이 바뀌는 것이다. 
 
 ## `in` 연산자
 
@@ -57,7 +57,7 @@ javascript의 메모리관리는 Reachable한지 안한지에의해 결정된다
  - 현제 함수 콜체인에서 다른 함수들의 변수들과 인자들. 이들은 나중에 콜이 끝나고 돌아갈때까지 반드시 유지되어야한다.
  - 글로벌 변수
 
-~~~
+~~~javascript
 function marry(man, woman) {
     woman.husband = man;
     man.wife = woman;
@@ -114,7 +114,7 @@ arrow function은 단순히 작은 기능을 담당하는 함수들의 단축키
  - `user.f()` or `user['f']()`
 
 다음 애러코드를 보면,
-~~~
+~~~javascript
 let user = {
   name: "John",
   hi() { alert(this.name); },
@@ -133,7 +133,7 @@ user.hi(); // John (the simple call works)
  1. `'.'` 연산은  obj.method를 끌어온다.
  2. 그다음 `()`실행한다. 
 
-~~~
+~~~javascript
 let hi = user.hi;
 hi();
 ~~~
