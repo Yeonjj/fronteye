@@ -104,6 +104,11 @@ Symbol은 두가지 용도로 사용된다.
  
 `use strict`를 사용하라. 그렇지않은 의도치않게 객체를 생성할 수 있다.
 
+### Arrow function
+
+arrow function은 단순히 작은 기능을 담당하는 함수들의 단축키가아니다. context를 벗어나지않으면서 this를 호출하는 컨텍스트로 쓸 수 있도록한다. 
+
+
 ### method 
 
  - `user.f()` or `user['f']()`
