@@ -1,6 +1,6 @@
 # Javascript 스터디
 
- - `let`과 `get`은 다르다.
+[TOC]
 
 ## Property value shorthand
 
