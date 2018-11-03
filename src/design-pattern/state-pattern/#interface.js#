@@ -1,0 +1,88 @@
+class ATMMachine {
+    constructor(){
+        this.hasCard = new HasCard(this);
+        this.noCard = new NoCard(this);
+        this.hasPin = new HasPin(this);
+        this.noCash = new NoCash(this);
+        this.atmState = noCard;
+        this.cashInMachine = 2000;
+        this.correctPinEntered = 0;
+    }
+
+    insertCard(){
+        atmState.insertCard();
+    }
+
+    ejectCard(){
+        atmState.ejectCard();
+    }
+
+    insertPin(pinNumber){
+        atmState.insertPin(pinNumber);
+    }
+
+    requesteCash(money){
+        atmState.requesteCash(money);
+    }
+}
+
+class HasCard {
+    constructer(atm){
+
+        this.atmMachine = atm;
+    }
+
+    insertPin(pinNumber){
+        if(pinNumber == 1234) {
+            console.log("pin Number correct!!");
+            this.atmMachine.
+        }
+    }
+
+    ejectCard(){
+        atmState.ejectCard();
+    }
+
+    insertCard(){
+        atmState.insertCard();
+    }
+
+    requesteCash(){
+        atmState.requesteCash(money);
+    }
+    
+}
+class NoCard {
+    
+}
+
+class HasPin{
+
+}
+
+class NoCash {
+
+}
+
+
+
+
+
+class Animal {
+
+    constructor(name) {
+        this.speed = 0;
+        this.name = name;
+    }
+
+    run(speed) {
+        this.speed += speed;
+        alert(`${this.name} runs with speed ${this.speed}.`);
+    }
+
+    stop() {
+        this.speed = 0;
+        alert(`${this.name} stopped.`);
+    }
+
+}
