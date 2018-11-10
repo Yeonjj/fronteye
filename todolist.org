@@ -1,3 +1,0 @@
-* Class 부분 공부해오기  
-** TODO : [[http://javascript.info/object-oriented-programming][링크주소]]
-* 원하는 프로젝트 제안

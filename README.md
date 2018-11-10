@@ -1,2 +1,8 @@
-# fronteye
-프론트아이 스터디 프로젝트
+# FrontEye
+
+This is a repository that contains all material that FronEye study-group has generated. 
+
+## DS project
+
+An Implementation of Differential Synchronization algorithm based on a paper [Differential Synchroniztion](https://neil.fraser.name/writing/sync/), Neil Fraser.
+
