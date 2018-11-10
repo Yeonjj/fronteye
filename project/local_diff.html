@@ -1,15 +1,56 @@
-<!DOCTYPE html>
+<!DOCTYPE html>dd
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <script src="./diff.js"></script>
+  <script src="./jsdiff.js"></script>
 </head>
 <body>
   <div id="text_1">
-    <textarea id="" name="" cols="30" rows="10"></textarea>
+    <textarea id="client" name="" cols="30" rows="10"></textarea>
   </div>
+
+  <div id="text_3">
+    <textarea id="shadow" name="" cols="30" rows="10"></textarea>
+  </div>
+
   <div id="text_2">
-    <textarea id="" name="" cols="30" rows="10"></textarea>
+    <textarea id="server" name="" cols="30" rows="10"></textarea>
   </div>
 </body>
+
+<script>
+  // client <=> shadow diff
+  function diffLocal() {}
+
+  // client => common shadow
+  document.getElementById('text_1').addEventListener('keyup', function(){
+    var inputdata = document.getElementById('client').value;
+    // console.log(inputdata);
+    // diffLocal();
+    sendLocal('shadow', inputdata);
+	});
+  
+   function sendLocal(divId, data){
+     document.getElementById(divId).value = data;
+   }
+
+  // server <=> shadow (diff)
+  
+  function sendAjax(url, data){
+    let data = { 'email' : data};
+    data = JSON.stringify(data);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', "application/json"); // data form 
+    xhr.send(data);
+
+    xhr.addEventListener('load', function(){
+        console.log(xhr.responseText);
+    });
+}
+</script>
+
 </html>
