@@ -9,7 +9,6 @@
 
  - nodejs 디버깅환경 구축하기.
  - (option)DS 문서 번역
- -
 
 ## Task1. 개발 방식
 
