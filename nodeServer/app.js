@@ -2,9 +2,15 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
-app.listen(3000, function() { //callback 함수는 다 비동기로 실행된다. 즉 요청이 들어왔을때 비동기적으로 실행이된다. 모든 동기 함수들(콜백이 아닌 함수들)을 실행시킨후에 실행이된다.
+// app.listen(3000, function() { //callback 함수는 다 비동기로 실행된다. 즉 요청이 들어왔을때 비동기적으로 실행이된다. 모든 동기 함수들(콜백이 아닌 함수들)을 실행시킨후에 실행이된다.
+//     console.log("start! on port 3000");
+// });
+app.listen(3000,'192.168.0.154',function(){
+ // app.close(function(){
+ //   app.listen(3000,'192.168.0.154')
+ // })
     console.log("start! on port 3000");
-});
+})
 
 app.use(express.static('public'));  //static 디렉토리를 설정한다. 변하지 않는 이미지 js파일 등을 말한다.
 app.use(bodyParser.json());
