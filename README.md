@@ -4,5 +4,5 @@ This is a repository that contains all material that FronEye study-group has gen
 
 ## DS project
 
-An Implementation of Differential Synchronization algorithm based on a paper [Differential Synchroniztion](https://neil.fraser.name/writing/sync/), Neil Fraser.
+An Implementation of Differential Synchronization algorithm based on a paper, [Differential Synchroniztion](https://neil.fraser.name/writing/sync/), Neil Fraser. [reqo](https://github.com/Yeonjj/Diff-Sync/tree/master)
 
