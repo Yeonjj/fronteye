@@ -1,0 +1,3 @@
+[submodule "projects/Diff-Sync"]
+	path = projects/Diff-Sync
+	url = https://github.com/Yeonjj/Diff-Sync.git
