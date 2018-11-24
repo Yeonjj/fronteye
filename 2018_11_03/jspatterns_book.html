@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#menu { text-align:center; }
+p { font-size:18px; padding-left:40px; }
+h2 { color:purple; }
+.red { color:red; }
+.blue { color:blue; }
+.darkred { color:darkred; }
+.darkgreen { color:darkgreen; }
+.space { visibility:hidden; }
+img { border:2px solid darkred; }
+</style>
+<style>
+.window { display:none; }
+.window.windowActive { display:block; }
+
+.btn {
+	display:inline-block;
+	height:22px; 
+    border: none;
+    outline: none;
+    padding: 4px 16px 8px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 18px; color:darkred; font-weight:bold;
+	margin-top:10px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.btnActive, .btn:hover {
+    background-color: #666;
+    color: yellow;
+}
+
+#resultBox { padding:20px 30px; background-color:lightblue; margin:10px; }
+.inputBox { margin:10px; }
+</style>
+
+
+
+</head>
+<body>
+
+<h1>BOOK : JavaScript Patterns</h1>
+<a href='https://www.a-mean-blog.com/ko/blog' ></a>
+
+
+<div id='menu'>
+	<span class='btn btnActive' data-window_num='1'>JS 함수</span>
+	<span class='btn' data-window_num='2'>콜백패턴</span>
+	<span class='btn' data-window_num='3'>함수의 name 프로퍼티</span>
+	<span class='btn' data-window_num='4'>함수 호이스팅</span>
+	<span class='btn' data-window_num='5'>콜백패턴 예제1</span>
+	<span class='btn' data-window_num='6'>콜백패턴 예제2</span>
+	<span class='btn' data-window_num='7'>콜백과 유효범위</span>
+	<span class='btn' data-window_num='8'>setTimeout()</span>
+	<span class='btn' data-window_num='9'>함수 반환하기</span>
+	<span class='btn' data-window_num='10'>카운터 반환</span>
+	<span class='btn' data-window_num='11'>자신을 재정의하는 함수</span>
+	<span class='btn' data-window_num='12'>자신재정의 함수의 단점</span>
+	<span class='btn' data-window_num='13'>즉시실행함수</span>
+	<span class='btn' data-window_num='14'>즉시실행의 매개변수</span>
+	<span class='btn' data-window_num='15'>즉시실행의 반환값</span>
+	<span class='btn' data-window_num='16'>윈도우4</span>
+	<span class='btn' data-window_num='17'>윈도우2</span>
+	<span class='btn' data-window_num='18'>윈도우3</span>
+	<span class='btn' data-window_num='19'>윈도우4</span>
+	
+</div><br>
+<div id='windowBox'>
+	<div class='window window_1 windowActive'>
+		<div class='explain slide'>
+			
+			JS의 함수는 일급객체다(first-class)<br>
+			JS의 함수는 유효범위를 갖는다.(scope)<br>
+			프로그램 실행 중에 동적으로 생생할 수 있다.<br>
+			함수를 변수에 할당할 수 있고 <br>
+			참조를 복사할 수 있고 <br>
+			확장하고 삭제할 수도 있다.<br>
+			다른 함수의 인자로 전달할 수 있고 다른 함수의 반환값이 될 수 있다.<br>
+			함수는 자신의 프로퍼티와 메서드를 가질 수 있다.<br><br>
+			
+			JS는 중괄호 지역범위를 사용하지 않고 함수유효범위를 사용한다.<br>
+			함수 안에서 var로 선언된 변수는 함수 밖에서 참조할 수 없다.<br>
+			변수를 if, for, while문 내에서 var로 선언해도 <br>
+			해당 구문의 지역변수가 되지 않는다. 하지만 해당 구문을 감싸고 있는 함수가 있으면<br>
+			구문 안의 변수도 지역변수가 된다. <br>
+			감싸고 있는 함수가 없으면 전역변수가 된다.<br>
+			
+		</div><br>
+
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/1.png'><br><br>
+			
+		<script>
+			function function_set() {
+				/*   */
+				
+					var add1 = new Function('a, b', 'return a + b');
+					var addResult1 = add1(1, 2);   // ?
+
+					//var add2 = new Fwnction('a, b', 'return a + b'); 에러발생 - Fwnction is not defined
+					
+					// 기명함수 표현식 
+					var add2 = function add2(a, b) {
+						return a + b;
+					};
+					var addResult2 = add2(10, 20);    // ?
+					
+					// 무명함수(익명) 표현식 
+					var add3 = function add3(a, b) {
+						return a + b;
+					};
+					var addResult3 = add3(100, 200);    // ?
+					
+				/*   */
+				
+				console.log(addResult1);
+				console.log(addResult2);				
+				console.log(addResult3);
+				
+				var array = [addResult1, addResult2, addResult3];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			addResult1 : <input type='text' value=''> <br>
+			addResult2 : <input type='text' value=''> <br>
+			addResult3 : <input type='text' value=''>
+		</div>
+		<button onclick='function_set()'>function_set</button>
+		
+	
+	</div>
+	<div class='window window_2'>
+		<div class='explain'>
+	
+			함수 표현식의 결과를 변수에 할당하지 않은 경우를 콜백패턴이라 한다.<br>
+			기명함수 표현식과 함수 선언문은 비슷해 보이지만 같은 것이 아니다.<br>
+			함수 선언문에는 세미콜론이 필요하지 않지만 함수 표현식에는 세미콜론이 있어야만 한다.<br><br>
+			
+			함수 선언문은 전역유효범위나 다른 함수의 본문 내부에서만 쓸 수 있다.<br>
+			변수나 속성에 할당할 수 없고, <br>
+			함수 호출의 인자로 넘길 수도 없다.<br><br>
+			
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/2.png'><br><br>
+			
+		<script>
+			function callbackPattern_set() {
+				/*   */
+					
+					function hi() {
+						return '이것은 함수 선언문입니다';
+					}
+					
+					var hiResult = hi();    // ?
+				
+					// 함수선언문의 유효범위
+					var funResult;
+					function glovalFun() {    // 여기서는 실제로 지역함수
+						var blueBox = 'blue';
+						return blueBox; // 반환되고
+						
+						function localFun() {							
+							function localLocal() {
+							
+							}
+						}
+					}
+					var blueBox = glovalFun();   // 함수실행의 결과를 다른 변수로 받아야 
+					console.log(blueBox);    // ?    결과를 확인할 수 있다.
+					
+				/*   */
+				
+
+				var array = [hiResult, blueBox];
+				seeResult(array);
+			}
+		</script>
+		<div class='inputBox'>
+			hiResult : <input type='text' value=''><br> 
+			blueBox : <input type='text' value=''>
+		</div>
+		<button onclick='callbackPattern_set()'>callbackPattern_set</button>
+		
+	</div>
+	<div class='window window_3'>
+		<div class='explain'>
+			함수선언문과 기명함수 표현식을 사용하면 name프로퍼티가 정의된다.<br>
+			무녕함수 표현식의 name프로퍼티는 브라우저에 따라 다르게 정의된다.<br><br>
+			
+			name프로퍼티는 함수 안에서 자신으로 재귀적으로 호출할 때 사용한다.<br>
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/3.png'><br><br>
+		<script>
+			function name_set() {
+				/*   */
+					
+					function sky() {}    // 함수선언문 
+					var ground = function() {};    // 무명함수 표현식 
+					var sea = function sea() {};    // 기명함수 표현식 
+					
+					var skyResult = sky.name;    // ?
+					var groundResult = ground.name;    // ?    브라우저마다 다른 결과를 반환
+					var seaResult = sea.name;    // ?
+				
+				/*   */
+				
+				console.log(skyResult);
+				console.log(groundResult);
+				console.log(seaResult);		
+				
+				var array = [skyResult, groundResult, seaResult];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			skyResult : <input type='text' value=''><br> 
+			groundResult : <input type='text' value=''><br> 
+			seaResult : <input type='text' value=''><br>
+		</div>
+		<button onclick='name_set()'>name_set</button>
+	</div>
+	<div class='window window_4'>
+		<div class='explain'>
+			함수의 본문 안 어디에서든 선언된 변수는 브라우저가 문서를 해석할 때<br>
+			함수의 가장 윗부분으로 끌어올려진다. 
+		</div><br>
+
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/4.png'><br><br>
+			
+		<script>
+			function hoisting_set() {
+				var typeOf_foo;
+				var typeOf_bar;
+				var fooResult;
+				var barResult;
+				
+				/*   */
+									
+					function foo() {   // 이 문서에서는 지역변수
+						alert('global foo');
+					}
+					function bar() {
+						alert('global bar');
+					}
+					function hoistMe() {
+						typeOf_foo = typeof foo;    // ?
+						typeOf_bar = typeof bar;    // ?
+						
+						fooResult = foo();    // ?
+						// barResult = bar();    // ?   에러 - bar is not a function
+						
+						// 함수선언문으로 정의된 변수 'foo'와 정의된 함수는 모두 호이스팅된다.					
+						function foo() {    // 지역함수 foo()가 없으면 상위 전역의 foo()가 실행된다.
+							return 'local foo';
+						}
+					
+						
+						// 함수표현식으로 정의된 변수 'bar'는 호이스팅되지만 함수는 호이스팅되지 않는다.
+						var bar = function() {
+							return 'local bar';
+						};
+					}
+					hoistMe();
+				
+				/*   */
+				
+				console.log(typeOf_foo);
+				console.log(typeOf_bar);
+				console.log(fooResult);
+			
+				
+				var array = [typeOf_foo, typeOf_bar, fooResult];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			typeOf_foo : <input type='text' value=''><br> 
+			typeOf_bar : <input type='text' value=''><br> 
+			fooResult : <input type='text' value=''><br>
+		</div>
+		<button onclick='hoisting_set()'>hoisting_set</button>
+	</div>
+	<div class='window window_5'>
+		<div class='explain'>
+
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/5.png'><br>
+			<img src='jspatternsBook_images/5_1.png'><br><br>
+		<script>
+			function callbackExample_set1() {
+
+				
+				/*   */
+				
+					var callbackFun = function() {
+						alert('콜백되었습니다.');
+					};
+					var master1 = function() {
+						alert('master함수의 실행입니다.');
+						callbackFun();
+					};	
+					master1(callbackFun);
+
+
+				
+				/*   */
+							
+			}
+			
+			function callbackExample_set2() {
+
+				
+				/*   */
+				
+					var callbackFun = function() {
+						alert('콜백되었습니다.');
+					};
+					var master2 = function() {
+						alert('master함수의 실행입니다.');
+						callbackFun();
+					};	
+					master2();
+
+
+				
+				/*   */
+						
+			}
+		</script>
+		<div class='inputBox'>
+			master1(callbackFun)실행에서 먼저 나오는 alert() : <input type='text' value=''><br>
+			master2()실행에서 먼저 나오는 alert() : <input type='text' value=''>
+		</div>
+		<button onclick='callbackExample_set1()'>callbackExample_set1</button>
+		<button onclick='callbackExample_set2()'>callbackExample_set2</button>
+	</div>
+	<div class='window window_6'>
+		<div class='explain'>
+			DOM트리를 탐색해 대용량의 요소들을 반환하는 함수<br><br>
+			
+				<div class='callbackPE2'>.callbackPE2 found</div>
+				<div class='callbackPE2'>.callbackPE2 found</div>
+				<div class='callbackPE2'>.callbackPE2 found</div>
+				<div class='callbackPE2'>.callbackPE2 found</div>
+				
+		</div><br>
+		
+		<div class='html'>HTML</div>
+			<img src='jspatternsBook_images/6.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/6_1.png'><br><br>
+			
+		<script>
+			function callbackPatternExample2_set() {
+
+				
+				/*   */
+				
+					// findNodes()는 찾은 요소들을(node) 콜백함수를 이용해 바로 숨긴다.
+					var findNodes = function(callback) {    // callback매개변수는 콜백함수 hide()
+						var i = 0;
+						var nodes = [];
+						var found; 
+						
+						// 콜백함수를 호출할 수 있는 지 확인 
+						if (typeof callback !== 'function') {
+							callback = false;
+						}
+						
+						var callbackPE2_C = document.querySelectorAll('.callbackPE2');
+						console.log(callbackPE2_C);
+						var callbackPE2_C_No = callbackPE2_C.length; confirm(callbackPE2_C_No);
+						
+						while (i < callbackPE2_C_No) {
+						
+							found = callbackPE2_C[i];
+							found.style.backgroundColor = 'lightgreen';
+							
+							
+							// 콜백 실행 
+							if (callback) {
+								callback(found);
+							}
+							nodes.push(found);
+							
+							i++;
+						}
+					
+						return nodes;
+					};
+					
+					// 콜백 함수 
+					var hide = function(node) {		
+						node.style.color = 'lightgreen';										
+					};
+					
+					var findNodesResult = findNodes(hide);
+					
+				
+				/*   */
+				
+				//console.log(findNodesResult[0]);   // ?
+				//console.log(findNodesResult[1]);   // ?
+				//console.log(findNodesResult[2]);   // ?
+				//console.log(findNodesResult[3]);   // ?		
+				
+				//var array = [findNodesResult[0],findNodesResult[1],findNodesResult[2],findNodesResult[3]];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='callbackPatternExample2_set()'>callbackPatternExample2_set</button>
+	</div>
+	<div class='window window_7'>
+		<div class='explain'>
+			myapp.paint메서드를 콜백함수로 사용한다면 <br>
+			this가 예상과 다르게 동작할 수 있는데 <br>
+			이런 문제를 해결하기 위해 콜백이 속해있는 객체를<br>
+			마스터함수에 인자로 같이 전달해준다.<br><br>
+			
+		
+			
+			<div class='window_7_text'>.window_7_text</div>
+			<div class='window_7_text'>.window_7_text</div>	
+			<div class='window_7_text'>.window_7_text</div>
+			<div class='window_7_text'>.window_7_text</div>		
+			
+		</div><br>
+		
+		<div class='html'>HTML</div>
+			<img src='jspatternsBook_images/7.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/7_1.png'><br><br>		
+		
+		<script>
+			function color_set() {
+				
+				/*   */
+				
+					var myapp = {};
+					myapp.color = 'green';
+					myapp.paint = function (node) {
+						console.log(node);
+						node.style.color = this.color;
+					};
+					
+					var new_findNodes = function(callback, callback_obj) {
+						if (typeof callback === 'string') {
+							callback = callback_obj[callback];
+						}
+																
+						var eleC = document.querySelectorAll('.window_7_text');
+												
+						for (var i=0; i<eleC.length; i++) {
+							if (typeof callback === 'function') {  // 이것을 제거하면 this가 node로 바인드되지 않음
+								callback.call(callback_obj, eleC[i]);
+							}
+							callback(eleC[i]);
+						}
+					};
+										
+					new_findNodes(myapp.paint, myapp);   // ('paint', myapp)로 사용할 수도 있다.
+				
+				/*   */
+				
+			
+				var array = [];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='color_set()'>color_set</button>
+	</div>
+	<div class='window window_8'>
+		<div class='explain'>
+			setTimeout()과 setInterval() window메서드들도 콜백함수를 받아서 실행된다.<br>
+			함수이름이 괄호없이 전달된 이유는<br>
+			setTimeout()이 콜백을 정해진 시간 이후에 실행하도록 <br>
+			함수를 가리키는 포인터만을 지정하는 것이다.<br><br>
+		</div><br>
+
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/8.png'><br><br>
+		
+		<script>
+			function setTimeout_callback_set() {
+
+				
+				/*   */
+				
+					var setTimeout_callback = function() {
+						alert('2초 후 콜백실행');
+					}						
+					setTimeout(setTimeout_callback, 2000);
+						
+					
+					function setTimeout_inside() {
+						setTimeout(function(){ alert('4초 후 콜백실행'); }, 4000);
+					}
+					setTimeout_inside();
+			
+				/*   */
+				
+				
+				//console.log(cbResult);
+			
+			
+				
+				//var array = [setTO_callbackResult];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='setTimeout_callback_set()'>setTimeout_callback</button>
+	</div>
+	<div class='window window_9'>
+		<div class='explain'>
+			함수는 객체이므로 반환값으로 사용될 수 있다.<br>
+			보다 특화된 함수를 반환할 수도 있고 <br>
+			입력값에 따라 필요한 함수를 새로 만들 수도 있다.<br><br>
+			
+			<b>실행가능한 함수를 반환하는 예제 : </b><br>
+			<span class='red'>반환함수는 내부함수이므로 클로저의 변수에 접근할 수 있다.<br>
+			클로저 변수는 외부 코드에서 접근할 수 없지만<br>
+			반환되는 내부함수를 통해서는 접근할 수 있다.</span><br><br>
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/9.png'><br><br>
+		<script>
+			function returnFunction_set() {
+
+				
+				/*   */
+				
+					var returnFunResult;
+					var setup = function() {
+					
+						alert('함수를 반환하는 함수 setup()실행<br>');
+						var closureVar = '여기는 클로저 : setup()함수가 내부함수를 감싸고 있으므로..';
+						return function() {
+							returnFunResult = '반환함수 결과 반환';
+							var array = [returnFunResult, closureVar];
+							seeResult(array);	// 결과를 #resultBox에서 보여주는 함수
+						};
+						
+					};
+					
+					var returnFun = setup();   // 내부함수 반환   
+					returnFun();    
+				
+				
+				/*   */
+			
+			
+				
+				//var array = [returnFunResult];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='returnFunction_set()'>returnFunction_set</button>
+	</div>
+	<div class='window window_10'>
+		<div class='explain'>
+			<b>호출할 때마다 값을 증가시켜 반환하는 반환함수 예제 :</b> 
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/10.png'><br><br>
+			
+		<script>
+			function countFun_set() {
+
+				/*   */
+									
+					function countFun() {
+						var count = 0;
+						return function() {
+							var countResult = (count += 1);
+							return countResult;
+						};
+					}
+					
+					var countNum = countFun();
+					
+					var countOne = countNum();   // ?
+					var countTwo = countNum();   // ?
+					var countThree = countNum();   // ?
+				
+				/*   */
+				
+			
+			
+				
+				var array = [countOne, countTwo, countThree];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			countOne : <input type='text' value=''><br> 
+			countTwo : <input type='text' value=''><br> 
+			countThree : <input type='text' value=''><br>
+		</div>
+		<button onclick='countFun_set()'>countFun</button>
+	</div>
+	<div class='window window_11'>
+		<div class='explain'>
+			이미 함수를 가지고 있는 변수에 새로운 함수를 할당하면<br>
+			새로운 함수가 이전 함수를 덮어쓰게 된다.<br>
+			이것은 이전의 함수 포인터가 새로운 함수를 가리키도록 하는 것과 같다.<br><br>
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/11.png'><br><br>
+			<img src='jspatternsBook_images/11_2.png'><br><br>
+		<script>
+			function define1_set() {	
+			
+				/*   */
+															
+					var defineFun1 = function() {
+						var closureVar = '난 클로저 변수';
+						alert(closureVar);
+						defineFun1 = function() {
+							var insideVar = '난 내부함수 변수';
+							return insideVar;
+						};
+					};
+					var defineFun1_result1 = defineFun1();    // ?
+					var defineFun1_result2 = defineFun1();    // ?
+				
+				/*   */			
+				
+				var array = [defineFun1_result1, defineFun1_result2];
+				seeResult(array);				
+			}
+			
+			function define2_set() {
+				/*    */
+					
+					var defineInfo = {
+						'sky': 'blue',
+						'ground': 'yellow'
+					};
+					var defineFun2 = function() {
+						var getInfo = defineInfo;
+						defineFun2 = function() {							
+							var insideVar = getInfo.sky;
+							return insideVar;
+						};
+					};
+					var defineFun2_result1 = defineFun2();    // ?
+					var defineFun2_result2 = defineFun2();    // ?
+					
+				/*    */
+				var array = [defineFun2_result1, defineFun2_result2];
+				seeResult(array);
+			}
+		</script>
+		<div class='inputBox'>
+			defineFun1_result1 : <input type='text' value=''><br> 
+			defineFun1_result2 : <input type='text' value=''><br> 
+			defineFun2_result1 : <input type='text' value=''><br> 
+			defineFun2_result2 : <input type='text' value=''><br>
+		</div>
+		<button onclick='define1_set()'>define1</button>
+		<button onclick='define2_set()'>define2</button>
+		<div class='inputBox'>
+			<input type='text' value=''><br>
+			<input type='text' value=''>
+		</div>
+	</div>
+	<div class='window window_12'>
+		<div class='explain'>
+			자신을 재정의하는 패턴의 단점은<br>
+			재정의 이후에는 원본 함수에 추가했던 속성에 접근할 수 없다는 것이다.<br>
+			또한 함수가 다른 변수에 할당되거나 객체의 메서드로 사용되면<br>
+			재정의된 부분이 아닌 원본 함수의 본문이 실행된다.<br><br>
+			
+			<b>define()을 일급객체로 사용하는 예제 : </b><br>
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/12.png'><br><br>
+			
+		<script>
+			function define30_set() { 
+		
+				/*   */
+				
+					var define = function() {
+						var sky = 'blue';
+						
+						define = function() {
+							sky ='red';
+							return sky;
+						};
+						
+						return sky;
+					};
+					
+					// 새롭게 추가된 속성
+					define.property = '전 원본함수의 property라는 이름의 속성에 추가된 값이에요!';
+					
+					// 다른 변수에 할당
+					var anotherVar = define;
+				
+					// 메서드로 사용 
+					var asMethod = {
+						method: define
+					};
+				
+					// 다른 변수이름으로 호출
+					var anotherVarResult1 = anotherVar();    // ?
+					var anotherVarResult2 = anotherVar();    // ?
+					var anotherVarResult3 = anotherVar.property;    // ?
+					
+					// 메서드로 호출 
+					var asMethodResult1 = asMethod.method();    // ?
+					var asMethodResult2 = asMethod.method();    // ?
+					var asMethodResult3 = asMethod.method.property;    // ?
+					
+					// 자신재정의 함수 사용
+					var defineResult1 = define();    // ?
+					var defineResult2 = define();    // ?
+					var defineResult3 = define.property;    // ?
+									
+				/*   */
+	
+			
+				
+				var array = [anotherVarResult1, anotherVarResult2, anotherVarResult3, asMethodResult1, asMethodResult2, asMethodResult3, defineResult1, defineResult2, defineResult3];
+				seeResult(array);		
+					
+			}
+		
+		</script>
+
+		<div class='inputBox'>
+			anotherVar(); : <input type='text' value=''><br>
+			anotherVar(); : <input type='text' value=''><br>
+			anotherVar.property; : <input type='text' value=''><br><br>
+			
+			asMethod.mothod(); : <input type='text' value=''><br>
+			asMethod.method(); : <input type='text' value=''><br>
+			asMethod.method.property; : <input type='text' value=''><br><br>
+			
+			define(); : <input type='text' value=''><br>
+			define(); : <input type='text' value=''><br>
+			define.property; : <input type='text' value=''><br><br>
+		</div>
+		<button onclick='define30_set()'>define3</button>
+	
+	</div>
+	<div class='window window_13'>
+		<div class='explain'>
+			즉시실행 함수패턴은 함수가 선언되지마자 실행되도록 하는 문법이다.<br>
+			함수 표현식을 생성한 직후 실행한다.<br><br>
+			
+			함수를 표현식으로 선언해야만 한다.<br>
+			함수가 즉시 실행되도록 마지막에 괄호를 추가한다.<br>
+			추가된 괄호까지 포함한 전체 함수를 감싸는 경우는 <br>
+			함수가 변수에 할당되지 않을 때이다.<br><br>
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/13.png'><br><br>
+		<script>
+			function immediately_set() {
+
+				
+				/*   */
+					
+					// 즉시실행 함수
+					var fire;
+					(function() {
+						fire = '이것은 즉시실행함수의 실행';    // ?	
+					}());
+					
+					
+					// 즉시실행 함수는 코드를 지역 유효범위로 감싼다.
+					var result1;
+					(function() {
+						var days1 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+						var today1 = new Date();
+						var msg1 = '오늘은 '+days1[today1.getDay()]+', '+today1.getDate();
+						
+						result1 = msg1;   // ?
+					}());
+					//var result1_local = console.log(days1[0]);   // ?
+
+					
+					// 즉시실행 함수로 감싸여져 있지 않으면 day2, today2, msg2는 전역변수가 된다.
+					var result2;
+					var fun = function() {						
+						result2 = '무명함수 안의 변수값';   // ?
+						var result3 = '무명함수 안에서 선언된 변수값';    
+					}
+					// var result2_global = result3;    // ?
+					fun();
+					
+				/*   */
+			
+			
+				var result1_local = '에러';
+				var result2_global = '에러';
+				var array = [fire, result1, result1_local, result2, result2_global];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			fire : <input type='text' value='' placeholder='fire' ><br>
+			result1 : <input type='text' value='' placeholder='result1'><br>
+			result1_local : <input type='text' value='' placeholder='result1_local'><br>
+			result2 : <input type='text' value='' placeholder='result2'><br>
+			result2_global : <input type='text' value='' placeholder='result2_global'>
+		</div>
+		
+		<button onclick='immediately_set()'>immediately</button>
+	</div>
+	<div class='window window_14'>
+		<div class='explain'>
+			즉시실행 함수에 인자를 전달할 수 있다.<br>
+			일반적으로는 전역객체가 즉시실행 함수의 인자로 전달된다.<br>
+			이런 방법으로 즉시실행 함수 안에서 window객체를 사용하지 않고 전역객체에 접근한다.
+		</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/14.png'><br>
+			<img src='jspatternsBook_images/14_1.png'><br>
+		<script>
+		
+			var world = {
+				'sky': '하늘',
+				'ground': '땅'
+			};
+			
+			function immediParamiter_set() {
+
+				
+				/*   */
+					
+					// 즉시실행 함수에 인자를 전달.
+					var result1;    // ?
+					(function (who, when) {
+						result1 = who+' '+when+' 살았습니다.';
+					}('홍길동이', '옛날에'));
+									
+									
+					// 함수안의 this는 global에 바인드됨
+					var result2;
+					(function (global) {
+						result2 = this.world.sky;    // 전역의 world객체참조    ?
+					}(this));
+					
+				/*   */
+	
+			
+				
+				var array = [result1, result2];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			result1 : <input type='text' value=''><br>
+			result2 : <input type='text' value=''>
+		</div>
+		
+		<button onclick='immediParamiter_set()'>immediParamiter</button>
+	</div>
+	<div class='window window_15'>
+		<div class='explain'>
+			즉시실행 함수도 값을 반환할 수 있고<br>
+			반환된 값을 변수에 할당할 수 있다.<br><br>
+			
+			즉시실행 함수에서 선언된 모든 변수는 지역변수이므로 전역이 어지럽혀지지 않는다.<br>
+			많은 js라이브러리가 즉시실행 함수로서 기능별 모듈이 된다.<br>
+		</div><br>
+
+		
+		<div class='js'>JS</div>
+			<img src='jspatternsBook_images/15.png'><br>	
+		
+		<script>
+			function immediReturn_set() {
+
+				
+				/*   */
+					
+					// 즉시실행 반환값을 변수에 할당 
+					var result1 = (function() {     // ?
+						return 2 + 2;
+					}());
+					
+					
+					// 즉시실행 반환값을 변수에 할당 
+					var result2 = (function() {     // ?
+						return 20 + 20;
+					})();
+					
+					
+					// 즉시실행 반환값을 변수에 할당할 때는 괄호로 감싸지 않아도 된다.
+					var result3 = function() {     // ?
+						return 200 + 200;
+					}();
+
+				
+					// 클로저의 변수를 반환하는 함수를 감싼 즉시실행 함수 
+					var getResult = (function() {    
+						var clouserVar = '여기는 클로저 오버..!';
+						return function() {							
+							return clouserVar;
+						};			
+					}());
+					var result4 = getResult();    // ?
+						
+						
+					// 즉시실행 함수의 반환값을 객체의 속성으로 할당 
+					var objectVar = {
+						message: (function() {
+							var who = "me";
+							var what = "call";
+							return what+' '+who;
+						}()),
+						getMsg: function() {
+							return this.message;
+						}
+					};
+					var result5 = objectVar.getMsg();    // ?
+					var result6 = objectVar.message;    // ?
+						
+				/*   */
+	
+			
+				
+				var array = [result1, result2, result3, result4, result5, result6];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			result1 : <input type='text' value=''><br>
+			result2 : <input type='text' value=''><br>
+			result3 : <input type='text' value=''><br>
+			result4 : <input type='text' value=''><br>
+			result5 : <input type='text' value=''><br>
+			result6 : <input type='text' value=''>
+		</div>
+		
+		<button onclick='immediReturn_set()'>immediReturn</button>
+	</div>
+	<div class='window window_16'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_17'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_18'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_19'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+</div>
+
+<div id='resultBox'>
+
+</div>
+
+
+
+<script>
+var menu_O = document.getElementById('menu');
+var btns = menu_O.getElementsByClassName('btn');
+for(var i=0; i<btns.length; i++) {
+	btns[i].addEventListener('click', function() {
+		var currentBtn = document.getElementsByClassName('btnActive');
+		currentBtn[0].className = currentBtn[0].className.replace(' btnActive', '');
+		this.className += ' btnActive';
+		
+		var windowNum = this.getAttribute('data-window_num');
+		var currentWindow = document.getElementsByClassName("windowActive");
+		currentWindow[0].className = currentWindow[0].className.replace(" windowActive", '');
+		
+		var openWindow = document.getElementsByClassName("window_"+windowNum);
+		openWindow[0].classList.add('windowActive');
+		
+		var resultBoxO = document.getElementById('resultBox');
+		resultBoxO.innerHTML = '';
+		
+		var inputBoxC = document.querySelectorAll('.inputBox input');
+		for (var y=0; y<inputBoxC.length; y++) {
+			inputBoxC[y].value = '';
+		}
+	});
+}
+
+
+function seeResult(array) {
+
+	var resultBoxO = document.getElementById('resultBox');
+	resultBoxO.innerHTML = '';
+	
+	var arrayNo = array.length;
+	for (var i=0; i<arrayNo; i++) {	
+		var divO = document.createElement('div');
+		divO.innerHTML = array[i];
+		resultBoxO.appendChild(divO);	
+	}
+}
+
+
+</script>

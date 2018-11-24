@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { padding:4px 10px; }
+#menu { text-align:center; }
+p { font-size:18px; padding-left:40px; }
+h2 { color:purple; }
+.red { color:red; }
+.blue { color:blue; }
+.darkred { color:darkred; }
+.darkgreen { color:darkgreen; }
+.space { visibility:hidden; }
+img { border:2px solid darkred; }
+</style>
+<style>
+.window { display:none; }
+.window.windowActive { display:block; }
+
+.btn {
+	display:inline-block;
+	height:22px; 
+    border: none;
+    outline: none;
+    padding: 4px 16px 8px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 18px; color:darkred; font-weight:bold;
+	margin-top:10px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.btnActive, .btn:hover {
+    background-color: #666;
+    color: yellow;
+}
+
+#resultBox { padding:20px 30px; background-color:lightblue; margin:10px; }
+.inputBox { margin:10px; }
+.exampleEle { border:2px solid darkred; padding:4px; }
+.answer { visibility:hidden; transition:visibility 2s; color:red; }
+.hidden { visibility:hidden; height:0px; }
+</style>
+
+
+
+</head>
+<body>
+
+<h1>plainjs.com</h1>
+<a href='https://plainjs.com/javascript/' >plainjs.com</a>
+
+
+<div id='menu'>
+	<span class='btn btnActive' data-window_num='1'>querySelectorAll()</span>
+	<span class='btn' data-window_num='2'>getElementById()</span>
+	<span class='btn' data-window_num='3'>matches()</span>
+	<span class='btn' data-window_num='4'>Node Relationships</span>
+	<span class='btn' data-window_num='5'>DOM Root Nodes</span>
+	<span class='btn' data-window_num='6'>nodeType과 nodeName</span>
+	<span class='btn' data-window_num='7'></span>
+	<span class='btn' data-window_num='8'></span>
+	<span class='btn' data-window_num='9'></span>
+	<span class='btn' data-window_num='10'></span>
+	<span class='btn' data-window_num='11'></span>
+	<span class='btn' data-window_num='12'></span>
+	<span class='btn' data-window_num='13'></span>
+	<span class='btn' data-window_num='14'></span>
+	<span class='btn' data-window_num='15'></span>
+	<span class='btn' data-window_num='16'></span>
+	<span class='btn' data-window_num='17'></span>
+	<span class='btn' data-window_num='18'></span>
+	<span class='btn' data-window_num='19'></span>
+	
+</div><br>
+<div id='windowBox'>
+	<div class='window window_1 windowActive'>
+		<div class='explain slide'>
+			주어진 CSS selector에 매치되는 DOM element들의 목록을 반환한다.<br>
+			매치되는 것이 없으면 빈 NodeList가 반환된다.<br>
+			document.querySelector()와 querySelectorAll()은 거의 모든 CSS selector가 가능하다.<br>
+			선택자를 jquery에서처럼 사용할 수 있다.<br><br>
+			<div class='exampleEle'>
+			
+				<div class='foo'>안녕 난 .foo</div>
+				<div class='foo'>반가워 나도 .foo</div>
+				<div class='foo'>둘 다 .foo야</div>
+				<div class='foo'>그러게.. 신기하네.. .foo</div><br>
+				
+				<div class='holo'>난 유일한 .holo class를 가지고 있는 요소</div>
+				<div class='holo'>미안하지만 .holo class는 나도 있거든?</div><br>
+
+				<div class='fooBox'>
+					<div class='foo'>나도 .foo니까 인사하고 싶어...</div>
+					<div class='foo'>얘들아~ 나도 .foo야!</div>
+				</div>
+				
+			</div>
+		</div><br>
+		
+
+		
+		<div class='html'>HTML</div>
+			<img src='plainjsBook_images/1.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/2.png'><br><br>
+			
+		<script>
+			function querySelector_set() {
+				/*   */
+					
+					// 매치된 것을 모두 찾기
+					var fooC = document.querySelectorAll('div.foo');
+					for (var i=0; i<fooC.length; i++) {
+						fooC[i].style.color = 'blue';   // ?
+					}
+
+					// 처음 매치된 것만 찾기 
+					var holoO_1 = document.querySelector('div.holo');
+					var holoO_2 = document.querySelectorAll('div.holo')[0];
+					var holoResult;    // ?
+					if (holoO_1 == holoO_2) {
+						holoResult = '같아요';
+					}
+					
+					// 타입문제로 헬퍼함수를 사용하는 것이 좋다.
+					function sAll(selector, context) {    // context는 옵션 
+						return (context || document).querySelectorAll(selector);
+					}
+					function sOne(selector, context) {    // context는 옵션 
+						return (context || document).querySelector(selector);
+					}
+					var foo_oneO = sOne('.foo');
+					var foo_oneO_innerHTML = foo_oneO.innerHTML;    // ?
+					var fooBoxO = document.querySelector('.fooBox');
+					var fooBoxO_H_fooC = sAll('.foo', fooBoxO);
+					var fooBoxO_second_innerHTML = fooBoxO_H_fooC[1].innerHTML;    // ?
+					
+					
+					
+				/*   */
+				
+		
+				var fooBlue = '글자색이 blue로 바뀌었습니다.';
+				var array = [fooBlue, holoResult, foo_oneO_innerHTML, fooBoxO_second_innerHTML];
+				seeResult(array);				
+			}
+		</script>
+		<button onclick='querySelector_set()'>querySelector</button>
+		<div class='inputBox'>
+			글자색이 바뀔까요? : <input type='text' value=''><br>
+			holoResult : <input type='text' value=''><br>
+			foo_oneO_innerHTML : <input type='text' value=''><br>
+			fooBoxO_second_innerHTML : <input type='text' value=''>
+		</div>
+	
+	</div>
+	<div class='window window_2'>
+		<div class='explain'>
+			
+			<div class='exampleEle'>
+			
+				<div class='apple'>사과 .apple </div>
+				<div class='apple'>이것도 사과 .apple</div>
+				<div class='apple'>이것도 사과네 .apple</div>
+				<div class="apple">어떡하지 이것도 사과야 .apple</div>
+				
+				<div id='appleBox'>
+					<div class='grape'>사과박스 안의 포도 .grape</div>
+					<div class='grape'>사과박스 안에 왜 포도가...? .grape</div>
+					<small>가을은 가고 small요소</small>
+					<small>겨울이 오고 small요소</small>
+				</div>
+				
+			</div>
+			
+		</div><br>
+	
+		
+		<div class='html'>HTML</div>
+			<img src='plainjsBook_images/3.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/4.png'><br><br>		
+		<script>
+			function getElement_set() {
+				/*   */
+					
+					// getElementsByClassName()메서드는 
+					// 주어진 class이름에 매치되는 요소들의 모음을 NodeList로 반환한다.
+					var appleC = document.getElementsByClassName('apple');
+					var appleC_No = appleC.length;    // ?
+					var result2 = appleC[2].innerHTML;    // ?
+					
+					
+					// 특정한 요소 안에서 찾기 
+					var appleBoxO = document.getElementById('appleBox');
+					var grapeC = appleBoxO.getElementsByClassName('grape');
+					var result3 = grapeC[0].innerHTML;   // ?
+					
+					
+					// document.getElementsByTagName()메서드를 사용해서 tag로 찾기
+					var smallC = appleBoxO.getElementsByTagName('small');
+					console.log(smallC);
+					var result4 = smallC[0].innerHTML;    
+					
+				/*   */
+				
+
+				var array = [appleC_No, result2, result3, result4]; 
+				seeResult(array);
+			}
+		</script>
+		<button onclick='getElement_set()'>getElement</button>
+		<div class='inputBox'>
+			appleC_No : <input type='text' value=''><br>
+			result2 : <input type='text' value=''><br>
+			result3 : <input type='text' value=''><br>
+			result4 : <input type='text' value=''>
+		</div>
+		
+	</div>
+	<div class='window window_3'>
+		<div class='explain'>
+			주어진 요소가 CSS selector와 매치하는지를 체크하기 위해<br>
+			브라우저가 지원하는 matches()나 matchesSelector() DOM메서드를 사용한다.<br>
+			이 메서드를 지원하지 않는 브라우저를 위한 polyfill도 필요하다.<br>
+			
+			<div class='exampleEle exampleEle3'>
+			
+				<span class='blueSky'>푸른하늘 .blueSky</span>
+				
+			</div>
+		</div><br>
+		
+		
+		
+		<div class='html'>HTML</div>
+			<img src='plainjsBook_images/5.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/6.png'><br><br>	
+		<script>
+			function matches_set() {
+				/*   */
+					
+					// matches polyfill
+					this.Element && function(ElementPrototype) {
+						ElementPrototype.matches = ElementPrototype.matches ||
+							ElementPrototype.matchesSelector ||
+							ElementPrototype.webkitMatchesSelector ||
+							ElementPrototype.msMatchesSelector ||
+							function(selector) {
+								var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
+								while (nodes[++i] && nodes[i] != node);
+								return !!nodes[i];
+							}
+					}(Element.prototype);
+					
+					
+					// 이후로 어느 DOM 요소에서든 matches()메서드를 호출할 수 있다.
+					var exampleEleO = document.getElementsByClassName('exampleEle3')[0]; 
+					var spanO = exampleEleO.querySelector('span'); 
+					var ismatches = spanO.matches('.blueSky');    // ?
+				
+					
+					// parent element node 가져오기 
+					var blueSkyO = document.querySelector('.blueSky');
+					var parent_OF_blueSkyO = blueSkyO.parentNode;
+					var parent_className = parent_OF_blueSkyO.className;    // ?
+					
+				/*   */
+				
+		
+				
+				var array = [ismatches, parent_className];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			ismatches : <input type='text' value=''><br>
+			parent_className : <input type='text' value=''>
+		</div>
+		<button onclick='matches_set()'>matches</button>
+	</div>
+	<div class='window window_4'>
+		<div class='explain'>
+			<img src='plainjsBook_images/100.png'><br>
+			<b class='red'>
+				parentNode <br>
+				childNodes[nodenumber]<br>
+				firstChild<br>
+				lastChild <br>
+				nextSibling<br>
+				previousSibling
+			</b><br>
+			
+			<div class='exampleEle example4'>
+				<h3>&lt;title <b class='red'>id</b><b class='blue'>='demo'</b>&gt;DOM Tutorial&lt;/title&gt;</h3>
+				<div>title element node는 text를 가지고 있나요? <input type='text' value='' placeholder='예/아니오'></div><br>
+				<div class='answer answer1'>title element node는 'DOM Tutorial'이라는 값을 가진 <b>text node</b>를 가지고 있습니다.</div>
+				
+				
+				<div id='text_OF_node' class='hidden'>
+					난 #text_OF_node의 text
+					<div class='firstChild'>.firstChild of #text_OF_node</div>
+					<div class='secondChild'>.secondChild of #text_OF_node</div>
+					<div class='lastChild'>.lastChild of #text_OF_node</div>
+					그럼~ 난?
+				</div>
+				
+			</div>
+		</div><br>
+		
+
+		
+		<div class='html'>HTML</div>
+			<img src='plainjsBook_images/7.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/8.png'><br><br>		
+		<script>
+			function innerHTML_set() {
+	
+				
+				/*   */
+						
+					var result1 = '아니오';
+					
+					// text node는 innerHTML속성으로 접근 
+					var result2 = document.getElementsByClassName('firstChild')[0].innerHTML;    // ?
+					
+					
+					// innerHTMl속성을 사용하는 것은 첫 child의 nodeValue로 접근하는 것과 같다.
+					var result3 = document.getElementsByClassName('firstChild')[0].firstChild.nodeValue;    // ?
+					
+					
+					// childNodes[0]은 text node 
+					var text_OF_nodeO = document.getElementById('text_OF_node');
+					var result4 = text_OF_nodeO.childNodes[0].nodeValue;    // ?
+					var result5 = text_OF_nodeO.childNodes[1].innerHTML;   // ?
+					var result6 = text_OF_nodeO.childNodes[3].innerHTML;   // ?
+					
+					
+					
+				
+				/*   */
+				
+				
+				var array = [result1, result2, result3, result4, result5, result6];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			result2 : <input type='text' value=''><br>
+			result3 : <input type='text' value=''><br> 
+			result4 : <input type='text' value=''> <br>
+			result5 : <input type='text' value=''> <br>
+			result6 : <input type='text' value=''>
+		</div>
+		<button onclick='innerHTML_set()'>innerHTML</button>
+	</div>
+	<div class='window window_5'>
+		<h3 class='explain explain5'>
+			<b class='red'>document.body</b> : 문서의 body <br>
+			<b class='red'>document.documentElement</b> : html요소 안의 문서 내용
+		</h3><br>
+		
+		
+		<div class='html'>HTML</div><br>
+		
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/9.png'><br>
+			<img src='plainjsBook_images/10.png'><br><br>
+		<script>
+			function body_set1() {
+
+				/*   */
+					
+					alert(document.body.innerHTML);
+				
+				/*   */
+							
+			}
+			
+			function documentElement_set2() {
+
+				
+				/*   */
+					
+					alert(document.documentElement.innerHTML);
+			
+				/*   */
+						
+			}
+		</script>
+		<button onclick='body_set1()'>body</button>
+		<button onclick='documentElement_set2()'>documentElement</button>
+	</div>
+	<div class='window window_6'>
+		<div class='explain'>
+			<img src='plainjsBook_images/101.png'><br>
+			
+			<div class='exampleEle exampleEle6 hidden'>
+			
+				<div id='id_one'>#id_one</div>
+				<h5 id='id_two'>#id_two</h5>
+				
+			</div>
+			
+		</div><br>
+	
+		
+		<div class='html'>HTML</div>
+			<img src='plainjsBook_images/11.png'><br><br>
+		<div class='js'>JS</div>
+			<img src='plainjsBook_images/12.png'><br><br>		
+		<script>
+			function nodeType_set() {
+
+				
+				/*   */
+					
+					var result1 = document.getElementById('id_one').nodeType;    // ?
+					
+					var result2 = document.getElementById('id_one').innerHTML;    // ?
+					
+					var result3 = document.getElementById('id_one').nodeName;    // ?
+					
+					var result4 = document.getElementById('id_one').childNodes[0].nodeName;    // ?
+					
+					var result5 = document.getElementById('id_one').tagName;    // ?
+					
+					var result6 = document.getElementById('id_two').tagName;    // ?
+					
+				
+				/*   */
+				
+	
+				
+				var array = [result1, result2, result3, result4, result5, result6];
+				seeResult(array);				
+			}
+		</script>
+		<div class='inputBox'>
+			result1 : <input type='text' value=''><br>
+			result2 : <input type='text' value=''> <br>
+			result3 : <input type='text' value=''> <br>
+			result4 : <input type='text' value=''> <br>
+			result5 : <input type='text' value=''> <br>
+			result6 : <input type='text' value=''> 
+		</div>
+		<button onclick='nodeType_set()'>nodeType</button>
+	</div>
+	<div class='window window_7'>
+		<div class='explain'>
+			
+		</div>
+		
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function color_set() {
+				
+				/*   */
+
+				
+				/*   */
+				
+			
+				var array = [];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='color_set()'>color_set</button>
+	</div>
+	<div class='window window_8'>
+		<div class='explain'>
+		
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function setTimeout_callback_set() {
+
+				
+				/*   */
+
+			
+				/*   */
+				
+				
+				//console.log(cbResult);
+			
+			
+				
+				//var array = [setTO_callbackResult];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='setTimeout_callback_set()'>setTimeout_callback</button>
+	</div>
+	<div class='window window_9'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function returnFunction_set() {
+
+				
+				/*   */
+
+				
+				
+				/*   */
+			
+			
+				
+				//var array = [returnFunResult];
+				//seeResult(array);				
+			}
+		</script>
+		<button onclick='returnFunction_set()'>returnFunction_set</button>
+	</div>
+	<div class='window window_10'>
+		<div class='explain'>
+		
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function _set() {
+
+				
+				/*   */
+									
+
+				
+				/*   */
+				
+			
+			
+				
+				var array = [countOne, countTwo, countThree];
+				seeResult(array);				
+			}
+		</script>
+		<button onclick='_set()'></button>
+	</div>
+	<div class='window window_11'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function _set() {	
+			
+				/*   */
+									
+	
+				
+				/*   */			
+				
+				var array = [defineFun1_result1, defineFun1_result2];
+				seeResult(array);				
+			}
+			
+			function define2_set() {
+				/*    */
+					
+
+					
+				/*    */
+				var array = [defineFun2_result1, defineFun2_result2];
+				seeResult(array);
+			}
+		</script>
+		<button onclick='define1_set()'>define1</button>
+		<button onclick='define2_set()'>define2</button>
+		<div class='inputBox'>
+			<input type='text' value=''><br>
+			<input type='text' value=''>
+		</div>
+	</div>
+	<div class='window window_12'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+
+									
+				/*   */
+	
+			
+				
+				var array = [];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			anotherVar(); : <input type='text' value=''><br>
+			anotherVar(); : <input type='text' value=''><br>
+			anotherVar.property; : <input type='text' value=''><br><br>
+			
+			asMethod.mothod(); : <input type='text' value=''><br>
+			asMethod.method(); : <input type='text' value=''><br>
+			asMethod.method.property; : <input type='text' value=''><br><br>
+			
+			define(); : <input type='text' value=''><br>
+			define(); : <input type='text' value=''><br>
+			define.property; : <input type='text' value=''><br><br>
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_13'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function _set() {
+
+				
+				/*   */
+					
+
+					
+				/*   */
+			
+			
+				var result1_local = '에러';
+				var result2_global = '에러';
+				var array = [fire, result1, result1_local, result2, result2_global];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			<input type='text' value='' placeholder='fire' ><br>
+			<input type='text' value='' placeholder='result1'><br>
+			<input type='text' value='' placeholder='result1_local'><br>
+			<input type='text' value='' placeholder='result2'><br>
+			<input type='text' value='' placeholder='result2_global'>
+		</div>
+		
+		<button onclick='_set()'></button>
+	</div>
+	<div class='window window_14'>
+		<div class='explain'>
+	
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+
+			function _set() {
+
+				
+				/*   */
+					
+	
+				/*   */
+	
+			
+				
+				var array = [result1, result2];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			result1 : <input type='text' value=''><br>
+			result2 : <input type='text' value=''>
+		</div>
+		
+		<button onclick='_set()'>immediParamiter</button>
+	</div>
+	<div class='window window_15'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function _set() {
+
+				
+				/*   */
+					
+	
+						
+				/*   */
+	
+			
+				
+				var array = [result1, result2, result3, result4, result5, result6];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+			result1 : <input type='text' value=''><br>
+			result2 : <input type='text' value=''><br>
+			result3 : <input type='text' value=''><br>
+			result4 : <input type='text' value=''><br>
+			result5 : <input type='text' value=''><br>
+			result6 : <input type='text' value=''>
+		</div>
+		
+		<button onclick='_set()'>immediReturn</button>
+	</div>
+	<div class='window window_16'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_17'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_18'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+	<div class='window window_19'>
+		<div class='explain'>
+
+		</div>
+		<div class='css'>CSS</div>
+		
+		<div class='html'>HTML</div>
+		
+		<div class='js'>JS</div>
+		
+		<script>
+			function define3_set() {
+
+				
+				/*   */
+					
+									
+				/*   */
+	
+			
+				
+				var array = [ ];
+				seeResult(array);				
+			}
+		</script>
+
+		<div class='inputBox'>
+		
+		</div>
+		
+		<button onclick='define3_set()'>define3</button>
+	</div>
+</div>
+
+<div id='resultBox'>
+
+</div>
+
+
+
+<script>
+var menu_O = document.getElementById('menu');
+var btns = menu_O.getElementsByClassName('btn');
+for(var i=0; i<btns.length; i++) {
+	btns[i].addEventListener('click', function() {
+		var currentBtn = document.getElementsByClassName('btnActive');
+		currentBtn[0].className = currentBtn[0].className.replace(' btnActive', '');
+		this.className += ' btnActive';
+		
+		var windowNum = this.getAttribute('data-window_num');
+		var currentWindow = document.getElementsByClassName("windowActive");
+		currentWindow[0].className = currentWindow[0].className.replace(" windowActive", '');
+		
+		var openWindow = document.getElementsByClassName("window_"+windowNum);
+		openWindow[0].classList.add('windowActive');
+		
+		var resultBoxO = document.getElementById('resultBox');
+		resultBoxO.innerHTML = '';
+		
+		var inputBoxC = document.querySelectorAll('.inputBox input');
+		for (var y=0; y<inputBoxC.length; y++) {
+			inputBoxC[y].value = '';
+		}
+	});
+}
+
+
+function seeResult(array) {
+
+	var resultBoxO = document.getElementById('resultBox');
+	resultBoxO.innerHTML = '';
+	
+	var arrayNo = array.length;
+	for (var i=0; i<arrayNo; i++) {	
+		var divO = document.createElement('div');
+		divO.innerHTML = array[i];
+		resultBoxO.appendChild(divO);	
+	}
+	
+	var answerC = document.getElementsByClassName('answer');
+	for (var y=0; y<answerC.length; y++) {
+		answerC[y].style.visibility = 'visible';
+	}
+}
+
+
+</script>
