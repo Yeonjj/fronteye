@@ -2,3 +2,7 @@
 	path = projects/Diff-Sync
 	url = https://github.com/Yeonjj/Diff-Sync.git
 	branch = master
+[submodule "projects/fronteye-diff-vue"]
+	path = projects/fronteye-diff-vue
+	url = https://github.com/bartkim0426/fronteye-diff-vue.git
+	branch = master
